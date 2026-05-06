@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event-Master | To‘yxanalar va bayramlar portali</title>
+    <script>
+      (function() {
+        try {
+          var target = window;
+          var originalFetch = target.fetch;
+          Object.defineProperty(target, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: function() {
+              return originalFetch;
+            },
+            set: function(fn) {
+              originalFetch = fn;
+            }
+          });
+        } catch (e) {
+          // Silently fail if we can't redefine
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
