@@ -63,4 +63,26 @@ export const api = {
     });
     return res.json();
   },
+  createMenuItem: async (item: Omit<MenuItem, 'id'>) => {
+    const res = await fetch(`${API_URL}/admin/menu-items`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item),
+    });
+    return res.json();
+  },
+  updateMenuItem: async (id: number, item: Omit<MenuItem, 'id'>) => {
+    const res = await fetch(`${API_URL}/admin/menu-items/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(item),
+    });
+    return res.json();
+  },
+  deleteMenuItem: async (id: number) => {
+    const res = await fetch(`${API_URL}/admin/menu-items/${id}`, {
+      method: 'DELETE',
+    });
+    return res.json();
+  },
 };

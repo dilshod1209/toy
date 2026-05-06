@@ -195,6 +195,28 @@ async function startServer() {
     res.json({ success: true });
   });
 
+  // Admin menu management
+  app.post("/api/admin/menu-items", (req, res) => {
+    const { name, price_per_person, category } = req.body;
+    const info = db.prepare("INSERT INTO menu_items (name, price_per_person, category) VALUES (?, ?, ?)").run(name, price_per_person, category);
+    res.json({ success: true, id: info.lastInsertRowid });
+  });
+
+  app.put("/api/admin/menu-items/:id", (req, res) => {
+    const { id } = req.params;
+    const { name, price_per_person, category } = req.body;
+    db.prepare("UPDATE menu_items SET name = ?, price_per_person = ?, category = ? WHERE id = ?").run(name, price_per_person, category, id);
+    res.json({ success: true });
+  });
+
+  app.delete("/api/admin/menu-items/:id", (req, res) => {
+    const { id } = req.params;
+    // Also delete from booking_menus to maintain integrity
+    db.prepare("DELETE FROM booking_menus WHERE menu_item_id = ?").run(id);
+    db.prepare("DELETE FROM menu_items WHERE id = ?").run(id);
+    res.json({ success: true });
+  });
+
   // Vite development middleware
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
