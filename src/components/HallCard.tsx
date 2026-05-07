@@ -14,44 +14,57 @@ export default function HallCard({ hall, onSelect }: HallCardProps) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 group"
+      className="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-100 group flex flex-col justify-between h-full"
       id={`hall-card-${hall.id}`}
     >
-      <div className="relative h-64 overflow-hidden">
-        <img
-          src={hall.image_url}
-          alt={hall.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
-        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-gold border border-gold/20">
-          Premium
+      <div>
+        <div className="flex items-center justify-between mb-8">
+          <div className="w-12 h-12 bg-gold/10 rounded-2xl flex items-center justify-center text-gold font-serif font-bold text-2xl">
+            {hall.name.charAt(0)}
+          </div>
+          <div className="bg-gold/5 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-gold border border-gold/10">
+            Premium Tanlov
+          </div>
         </div>
+        
+        <h3 className="text-3xl font-serif text-dark mb-4 group-hover:text-gold transition-colors duration-300 leading-tight">{hall.name}</h3>
+        
+        <div className="flex gap-2 mb-6 flex-wrap">
+          <span className="bg-gray-50 text-gray-500 px-3 py-1 rounded-lg text-xs font-bold border border-gray-100 uppercase tracking-tighter">LUKS</span>
+          <span className="bg-gray-50 text-gray-500 px-3 py-1 rounded-lg text-xs font-bold border border-gray-100 uppercase tracking-tighter">ZAMONAVIY</span>
+          <span className="bg-gray-50 text-gray-500 px-3 py-1 rounded-lg text-xs font-bold border border-gray-100 uppercase tracking-tighter">OVOZ TIZIMI</span>
+        </div>
+
+        <p className="text-gray-500 text-lg font-light leading-relaxed mb-8 line-clamp-4 italic border-l-2 border-gold/20 pl-4 py-1">
+          "{hall.description}"
+        </p>
       </div>
       
-      <div className="p-6">
-        <h3 className="text-2xl font-serif text-dark mb-2">{hall.name}</h3>
-        <p className="text-gray-500 text-sm mb-4 line-clamp-2">{hall.description}</p>
-        
-        <div className="flex items-center justify-between border-t border-gray-100 pt-4">
-          <div className="space-y-1">
-            <div className="flex items-center text-sm text-gray-600">
-              <Users size={16} className="mr-2 text-gold" />
-              <span>{hall.capacity} kishilik</span>
+      <div className="pt-8 border-t border-gray-50">
+        <div className="flex items-center justify-between mb-8">
+          <div className="space-y-3">
+            <div className="flex items-center text-sm font-semibold text-gray-600">
+              <div className="w-8 h-8 rounded-full bg-gold/5 flex items-center justify-center mr-3">
+                <Users size={14} className="text-gold" />
+              </div>
+              <span className="tracking-tight">{hall.capacity.toLocaleString()} nafar mehmonga mo'ljallangan</span>
             </div>
-            <div className="flex items-center text-sm text-gray-600">
-              <CreditCard size={16} className="mr-2 text-gold" />
-              <span>{hall.price_per_day.toLocaleString()} so'm / kun</span>
+            <div className="flex items-center text-sm font-semibold text-gray-600">
+              <div className="w-8 h-8 rounded-full bg-gold/5 flex items-center justify-center mr-3">
+                <CreditCard size={14} className="text-gold" />
+              </div>
+              <span className="tracking-tight">{hall.price_per_day.toLocaleString()} so'm dan boshlanadi</span>
             </div>
           </div>
-          
-          <button
-            onClick={() => onSelect(hall)}
-            id={`select-hall-${hall.id}`}
-            className="bg-gold text-white p-3 rounded-xl hover:bg-gold/90 transition-colors shadow-lg shadow-gold/20 flex items-center"
-          >
-            <ChevronRight size={20} />
-          </button>
         </div>
+        
+        <button
+          onClick={() => onSelect(hall)}
+          id={`select-hall-${hall.id}`}
+          className="w-full bg-dark text-white py-5 rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:bg-gold transition-all duration-300 shadow-xl shadow-dark/10 flex items-center justify-center gap-3 group/btn"
+        >
+          Bron qilish <ChevronRight size={18} className="group-hover/btn:translate-x-1 transition-transform" />
+        </button>
       </div>
     </motion.div>
   );
